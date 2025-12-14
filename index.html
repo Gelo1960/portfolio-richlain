@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richlain Okiere | Corporate Finance & Strategy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 1. FONTS & RESET --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #0A0A0A;
+            /* Deep charcoal - softer than pure black */
+            --surface: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --primary-orange: #C9A962;
+            /* Elegant gold/amber - professional */
+            --primary-green: #B8C4CE;
+            /* Soft silver/platinum */
+            --accent-blue: #5A7A9A;
+            /* Muted steel blue */
+            --text-main: #F5F5F5;
+            --text-muted: #8A8A8A;
+            --glass: blur(16px) saturate(180%);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-premium: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.6);
+            --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+            cursor: default;
+            min-width: 320px;
+        }
+
+        /* TEXTURE GRAIN */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--noise);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.6;
+            mix-blend-mode: overlay;
+        }
+
+        /* SPOTLIGHT EFFECT */
+        .spotlight-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.03), transparent 40%);
+        }
+
+        /* AMBIENT LIGHTS */
+        .ambient-light {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.12) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 25s ease-in-out infinite;
+            filter: blur(60px);
+        }
+
+        .ambient-light-2 {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(224, 255, 79, 0.08) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 30s ease-in-out infinite reverse;
+            filter: blur(60px);
+        }
+
+        .ambient-light-3 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 240, 0.06) 0%, transparent 70%);
+            top: 50%;
+            right: 20%;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 35s ease-in-out infinite;
+            filter: blur(60px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        /* --- 2. LAYOUT SPLIT SCREEN --- */
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(200px, 250px) 1fr;
+            gap: clamp(25px, 3vw, 50px);
+            padding: 50px clamp(15px, 2vw, 20px) 60px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* --- 3. SIDEBAR STICKY (Identité) --- */
+        .sidebar {
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            align-self: start;
+        }
+
+        .id-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: var(--glass);
+            -webkit-backdrop-filter: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.1s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .id-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 77, 0, 0.1), rgba(204, 255, 0, 0.05), rgba(0, 217, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .id-card:hover::before {
+            opacity: 1;
+        }
+
+        .id-card:hover {
+            border-color: rgba(255, 107, 53, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 107, 53, 0.15);
+            transform: translateY(-5px);
+        }
+
+        /* Animation reflet sur la carte */
+        .id-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 8s infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: translateX(-100%);
+            }
+
+            20% {
+                transform: translateX(100%);
+            }
+
+            40%,
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .photo-frame {
+            width: 100%;
+            aspect-ratio: 1/1.1;
+            background: linear-gradient(135deg, #121212, #1e1e1e);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            /* Focus on face */
+            filter: grayscale(100%) contrast(1.1) brightness(0.9);
+            transition: var(--transition-smooth);
+            transform: scale(1.01);
+        }
+
+        .id-card:hover .photo-frame img {
+            filter: grayscale(0%) contrast(1.1);
+            transform: scale(1.03);
+        }
+
+        .name-block h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: clamp(18px, 4vw, 24px);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            padding: 4px 0;
+            letter-spacing: -0.5px;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-orange) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.2);
+            }
+        }
+
+        .role-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(201, 169, 98, 0.08);
+            color: var(--primary-orange);
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+            z-index: 1;
+        }
+
+        .role-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .role-tag:hover {
+            background: rgba(255, 77, 0, 0.2);
+            border-color: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+
+        .contact-mini {
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 77, 0, 0.2);
+            border-color: var(--primary-orange);
+            color: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+
+        /* --- 4. MAIN CONTENT STREAM --- */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(50px, 8vw, 80px);
+            width: 100%;
+            min-width: 0;
+            /* Permet au flex item de rétrécir */
+            overflow-x: hidden;
+            /* Cache le débordement horizontal */
+        }
+
+        /* HERO SECTION - Premium Style */
+        .hero {
+            position: relative;
+            overflow: visible;
+            padding: 10px 0 25px;
+        }
+
+        .hero h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(28px, 4.5vw, 48px);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+            color: #fff;
+            opacity: 0;
+            animation: heroFadeIn 1s ease forwards 0.3s;
+        }
+
+        .hero h2 span {
+            display: block;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, #FF8C5A 50%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientFlow 4s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+        }
+
+        .hero p {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            max-width: 450px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 400;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--primary-orange);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* STATS GRID - Card Style with Glow */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 0;
+            margin: 25px 0 35px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-orange), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 107, 53, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.15);
+        }
+
+        .stat-item:hover::before {
+            opacity: 1;
+        }
+
+        .stat-item h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(24px, 2.5vw, 32px);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-item p {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+
+        .ticker-wrap {
+            width: 100%;
+            position: relative;
+            left: auto;
+            right: auto;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            margin: 60px 0;
+            border-radius: 8px;
+        }
+
+        .ticker {
+            display: inline-flex;
+            animation: ticker 40s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 3rem;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 16px;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .ticker-item::before {
+            content: "◉";
+            margin-right: 10px;
+            font-size: 10px;
+            color: var(--primary-orange);
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-100%, 0, 0);
+            }
+        }
+
+        /* PROFIL EXECUTIF */
+        .profile-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: clamp(15px, 2.5vw, 25px);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: visible;
+            /* Changé de hidden à visible */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.03), rgba(224, 255, 79, 0.02));
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .profile-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 11px;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .profile-content h3 {
+            font-size: 16px;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .profile-content p {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-size: 13px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .profile-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 colonnes fixes */
+            gap: 10px;
+            margin-top: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pillar-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            min-width: 0;
+            /* Permet de rétrécir */
+        }
+
+        .pillar-item:hover {
+            border-color: rgba(255, 107, 53, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-3px);
+        }
+
+        .pillar-icon {
+            font-size: 16px;
+            color: var(--primary-green);
+            margin-bottom: 6px;
+        }
+
+        .pillar-text {
+            font-size: 10px;
+            color: var(--text-main);
+            font-weight: 500;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* BENTO SERVICES - 3 COLONNES */
+        .section-label {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 14px;
+            color: var(--primary-orange);
+            margin-bottom: 40px;
+            display: block;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .bento-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(10px, 1.2vw, 15px);
+            margin-bottom: 60px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: clamp(22px, 3vw, 32px) clamp(16px, 2.2vw, 22px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            cursor: pointer;
+            min-width: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-hover), 0 0 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .card-main {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+        }
+
+        .card-secondary {
+            background: linear-gradient(135deg, #2D2D2D 0%, #1F1F1F 100%);
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(184, 196, 206, 0.2);
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, #1E3A5F 0%, #0D253F 100%);
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(90, 122, 154, 0.3);
+        }
+
+        .card h3 {
+            font-size: clamp(22px, 2.5vw, 28px);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.15;
+            padding: 3px 0;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            font-size: clamp(13px, 1.4vw, 15px);
+            opacity: 0.9;
+            font-weight: 400;
+            max-width: 100%;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+
+        .card-icon {
+            font-size: clamp(38px, 4vw, 45px);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CASE STUDIES */
+        .case-study {
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-orange), var(--primary-green));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .case-study:hover::before {
+            opacity: 1;
+        }
+
+        .case-study:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 107, 53, 0.3);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-premium), 0 0 40px rgba(255, 107, 53, 0.1);
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .case-title {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .case-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .result-highlight {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-green);
+            display: block;
+            margin-bottom: 10px;
+            line-height: 1.15;
+            padding: 5px 0;
+        }
+
+        .result-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(10px, 1.2vw, 15px);
+            margin-bottom: 60px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: clamp(18px, 2.2vw, 25px);
+            transition: var(--transition-smooth);
+            min-width: 0;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(255, 107, 53, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .testimonial-quote {
+            font-size: 48px;
+            color: var(--primary-orange);
+            opacity: 0.3;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* METHODOLOGY */
+        .method-step {
+            display: flex;
+            gap: 40px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: flex-start;
+            transition: var(--transition-smooth);
+        }
+
+        .method-step:hover {
+            padding-left: 20px;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .step-num {
+            font-family: 'Syncopate';
+            font-size: 24px;
+            color: var(--primary-orange);
+            opacity: 0.5;
+            font-weight: 700;
+            min-width: 60px;
+        }
+
+        .step-content h4 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .step-content p {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        /* TECH STACK CATEGORIES */
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .tech-category h4 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 13px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .tech-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .tech-item:hover {
+            color: var(--primary-orange);
+            transform: translateX(5px);
+        }
+
+        .tech-icon {
+            color: var(--primary-orange);
+            font-size: 12px;
+        }
+
+        /* FOOTER CTA */
+        .footer-cta {
+            margin-top: 100px;
+            padding-top: 80px;
+            border-top: 1px solid var(--border);
+        }
+
+        .big-cta {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(60px, 9vw, 140px);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.15;
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            display: inline-block;
+            letter-spacing: -3px;
+            padding: 10px 0;
+        }
+
+        .big-cta:hover {
+            color: var(--primary-orange);
+            -webkit-text-stroke: 0;
+            text-shadow: 0 0 40px rgba(201, 169, 98, 0.4), 0 0 20px rgba(201, 169, 98, 0.2);
+            transform: translateX(10px);
+        }
+
+        /* Scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--primary-green));
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        /* NAVIGATION FIXED */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: var(--glass);
+            -webkit-backdrop-filter: var(--glass);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 20px 5%;
+            display: none;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-orange);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-cta:hover {
+            background: rgba(201, 169, 98, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--primary-orange);
+            box-shadow: 0 4px 12px rgba(201, 169, 98, 0.15);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .wrapper {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                padding: 40px 30px;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .bento-grid-3,
+            .testimonials-grid,
+            .tech-categories {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .case-grid,
+            .profile-pillars {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            main-nav {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                padding: 30px 20px;
+                gap: 50px;
+            }
+
+            .hero h2 {
+                font-size: clamp(40px, 10vw, 70px);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .case-study,
+            .card,
+            .profile-section,
+            .testimonial-card {
+                padding: 30px;
+            }
+
+            .method-step {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .step-num {
+                min-width: auto;
+            }
+
+            .big-cta {
+                font-size: clamp(40px, 10vw, 80px);
+            }
+
+            .tech-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div class="ambient-light"></div>
+    <div class="ambient-light-2"></div>
+    <div class="ambient-light-3"></div>
+
+    <!-- Navigation Fixe -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">RICHLAIN OKIERE</a>
+            <a href="#contact" class="nav-cta">
+                <i class="fas fa-calendar-check"></i> Réserver un appel
+            </a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+
+        <aside class="sidebar">
+            <div class="id-card">
+                <div class="photo-frame">
+                    <img src="./1acac855-923e-4923-a062-c20658ec17e1.png" alt="Richlain Okiere">
+                </div>
+
+                <div class="name-block">
+                    <h1>Richlain<br>Okiere</h1>
+                    <span class="role-tag">Open for Business</span>
+                </div>
+
+                <div style="font-size: 15px; color: #bbb; line-height: 1.6; position: relative; z-index: 1;">
+                    Expert en ingénierie financière et Business Intelligence.<br>
+                    Je structure votre croissance.
+                </div>
+
+                <div class="contact-mini">
+                    <p><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> Paris | Brazzaville</p>
+                    <p style="margin-top: 8px;"><i class="fas fa-phone" style="margin-right: 8px;"></i> +33 7 53 20 65
+                        47</p>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:richlainjunior@gmail.com" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content">
+
+            <section class="hero">
+                <h2>Corporate<br><span>Strategist.</span></h2>
+                <p>
+                    "Transformer l'incertitude des marchés en stratégies de croissance mesurables."
+                    <br><br>
+                    J'accompagne les dirigeants avec une approche hybride mêlant rigueur comptable et intelligence
+                    économique pour sécuriser vos décisions stratégiques.
+                </p>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-item">
+                    <h4>+20K€</h4>
+                    <p>Capitaux Modélisés</p>
+                </div>
+                <div class="stat-item">
+                    <h4>15+</h4>
+                    <p>Projets Structurés</p>
+                </div>
+                <div class="stat-item">
+                    <h4>100%</h4>
+                    <p>Taux de Satisfaction</p>
+                </div>
+            </section>
+
+            <!-- PROFIL EXECUTIF -->
+            <section class="profile-section">
+                <div class="profile-title">PROFIL EXÉCUTIF</div>
+                <div class="profile-content">
+                    <h3>Consultant financier spécialisé dans l'optimisation de la rentabilité et la modélisation de
+                        scénarios complexes.</h3>
+                    <p>Avec une approche hybride mêlant rigueur comptable et intelligence économique, j'accompagne les
+                        dirigeants dans la sécurisation de leurs décisions stratégiques. Mon expertise couvre l'ensemble
+                        de la chaîne de valeur financière : de la levée de fonds (Business Planning) au pilotage
+                        opérationnel automatisé (Power BI).</p>
+
+                    <div class="profile-pillars">
+                        <div class="pillar-item">
+                            <div class="pillar-icon"><i class="fas fa-crosshairs"></i></div>
+                            <div class="pillar-text">Précision des données</div>
+                        </div>
+                        <div class="pillar-item">
+                            <div class="pillar-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="pillar-text">Clarté visuelle</div>
+                        </div>
+                        <div class="pillar-item">
+                            <div class="pillar-icon"><i class="fas fa-bullseye"></i></div>
+                            <div class="pillar-text">Impact décisionnel</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="ticker-wrap">
+                <div class="ticker">
+                    <div class="ticker-item">Financial Modeling</div>
+                    <div class="ticker-item">Business Intelligence</div>
+                    <div class="ticker-item">Valuation (DCF)</div>
+                    <div class="ticker-item">Strategy</div>
+                    <div class="ticker-item">Power BI</div>
+                    <div class="ticker-item">Fundraising</div>
+                    <div class="ticker-item">Financial Modeling</div>
+                    <div class="ticker-item">Business Intelligence</div>
+                </div>
+            </div>
+
+            <!-- EXPERTISE & SERVICES - 3 SERVICES -->
+            <section>
+                <span class="section-label">Expertise & Services</span>
+                <div class="bento-grid-3">
+                    <div class="card card-main">
+                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h3>Financial<br>Modeling</h3>
+                            <p>Modélisation financière avancée pour fusions-acquisitions, lancements de produits ou
+                                levées de fonds. Livrables : Integrated Financial Statements (P&L, Bilan, Cash Flow),
+                                Analyse de sensibilité, Scénarios (Base/Bull/Bear).</p>
+                        </div>
+                    </div>
+                    <div class="card card-secondary">
+                        <div class="card-icon"><i class="fas fa-database"></i></div>
+                        <div>
+                            <h3>Power BI<br>& Reporting</h3>
+                            <p>Transformation de données brutes en tableaux de bord exécutifs pour un pilotage temps
+                                réel. Livrables : Suivi automatisé des KPIs, Analyse des marges par produit, Détection
+                                des fuites de trésorerie.</p>
+                        </div>
+                    </div>
+                    <div class="card card-blue">
+                        <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+                        <div>
+                            <h3>Valuation<br>& Strategy</h3>
+                            <p>Détermination de la juste valeur des actifs pour la cession ou l'investissement. Méthodes
+                                : DCF (Discounted Cash Flow), Comparables boursiers, Transactions précédentes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CASE STUDIES -->
+            <section>
+                <span class="section-label">Selected Works</span>
+                <div style="display: flex; flex-direction: column; gap: 60px;">
+
+                    <div class="case-study">
+                        <div class="case-header">
+                            <div>
+                                <h3 class="case-title">Urban Mobility Scaling</h3>
+                                <p style="color: #888;">Structuration financière complète pour déploiement d'une flotte
+                                    de transport urbain (Brazzaville)</p>
+                            </div>
+                            <span class="case-tag">Infrastructure</span>
+                        </div>
+                        <div class="case-grid">
+                            <div>
+                                <h4 style="color: #fff; margin-bottom: 15px; font-size: 18px;">Le Défi</h4>
+                                <p style="color: #aaa; font-size: 15px; line-height: 1.6;">Le client souhaitait pénétrer
+                                    un marché saturé avec une visibilité nulle sur le retour sur investissement (ROI) et
+                                    une structure de coûts volatile.</p>
+                                <h4 style="color: #fff; margin-bottom: 15px; margin-top: 30px; font-size: 18px;">La
+                                    Solution</h4>
+                                <p style="color: #aaa; font-size: 15px; line-height: 1.6;">Développement d'un Business
+                                    Plan sur 5 ans intégrant les variables macro-économiques locales. Calcul du Point
+                                    Mort (Break-even) précis au kilomètre près et stress-test du modèle face à une
+                                    augmentation de 20% du prix du carburant.</p>
+                            </div>
+                            <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px;">
+                                <div style="margin-bottom: 30px;">
+                                    <span class="result-highlight">18% IRR</span>
+                                    <span class="result-desc">Taux de Rentabilité Interne validé</span>
+                                </div>
+                                <div style="margin-bottom: 30px;">
+                                    <span class="result-highlight">-15% CAPEX</span>
+                                    <span class="result-desc">Optimisation des coûts de démarrage</span>
+                                </div>
+                                <div>
+                                    <span class="result-highlight" style="font-size: 32px;">Validé</span>
+                                    <span class="result-desc">Dossier de financement accepté par les banques</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-study">
+                        <div class="case-header">
+                            <div>
+                                <h3 class="case-title">Retail Performance Monitoring</h3>
+                                <p style="color: #888;">Implémentation d'un système de Business Intelligence pour une
+                                    PME (Secteur : Services/Commerce)</p>
+                            </div>
+                            <span class="case-tag">PME / Commerce</span>
+                        </div>
+                        <div class="case-grid">
+                            <div>
+                                <h4 style="color: #fff; margin-bottom: 15px; font-size: 18px;">Le Défi</h4>
+                                <p style="color: #aaa; font-size: 15px; line-height: 1.6;">Direction naviguant "à vue"
+                                    avec des données comptables en retard de 30 jours. Incapacité à identifier les
+                                    produits déficitaires en temps réel.</p>
+                                <h4 style="color: #fff; margin-bottom: 15px; margin-top: 30px; font-size: 18px;">La
+                                    Solution</h4>
+                                <p style="color: #aaa; font-size: 15px; line-height: 1.6;">Architecture de données :
+                                    Nettoyage et structuration des flux de données (ETL). Automation : Création d'un
+                                    Dashboard Power BI interactif connecté aux sources de vente. KPIs définis : EBITDA
+                                    mensuel, Marge Brute par unité, Cash Burn Rate.</p>
+                            </div>
+                            <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px;">
+                                <div style="margin-bottom: 30px;">
+                                    <span class="result-highlight">10h/mois</span>
+                                    <span class="result-desc">Libérées grâce à l'automatisation du reporting</span>
+                                </div>
+                                <div style="margin-bottom: 30px;">
+                                    <span class="result-highlight">-5% Pertes</span>
+                                    <span class="result-desc">Ligne de produits à marge négative identifiée et
+                                        corrigée</span>
+                                </div>
+                                <div>
+                                    <span class="result-highlight" style="font-size: 32px;">Temps Réel</span>
+                                    <span class="result-desc">Visibilité accrue : Pilotage en temps réel vs données à
+                                        J-30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TESTIMONIALS -->
+            <section>
+                <span class="section-label">Retours Clients</span>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card tilt-element">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Modèle financier d'une précision rare. Nous avons pu sécuriser un
+                            financement bancaire grâce à la clarté des projections.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">E</div>
+                            <div class="author-info">
+                                <h4>Enzo, Fondateur</h4>
+                                <p>Start-up Tech</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card tilt-element">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">L'analyse a révélé une faille stratégique critique. ROI du conseil :
+                            immédiat.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">C</div>
+                            <div class="author-info">
+                                <h4>Consultant Indépendant</h4>
+                                <p>Secteur Santé</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card tilt-element">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Dashboard impeccable. Enfin un pilotage qui fait sens pour la
+                            direction.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">D</div>
+                            <div class="author-info">
+                                <h4>Dirigeant PME</h4>
+                                <p>Commerce & Distribution</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- METHODOLOGY -->
+            <section>
+                <span class="section-label">Méthodologie</span>
+
+                <div class="method-step">
+                    <span class="step-num">01</span>
+                    <div class="step-content">
+                        <h4>Diagnostic Stratégique</h4>
+                        <p>Audit des données existantes, challenge des hypothèses de croissance et définition des KPIs
+                            critiques. Identification des angles morts et des opportunités d'optimisation.</p>
+                    </div>
+                </div>
+
+                <div class="method-step">
+                    <span class="step-num">02</span>
+                    <div class="step-content">
+                        <h4>Architecture & Modélisation</h4>
+                        <p>Construction du cœur financier ou du système BI. Itérations, stress-tests et validation de la
+                            robustesse des scénarios. Développement de solutions sur mesure adaptées à vos spécificités.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="method-step">
+                    <span class="step-num">03</span>
+                    <div class="step-content">
+                        <h4>Déploiement & Transfert</h4>
+                        <p>Livraison des outils finaux et formation des équipes pour une autonomie complète
+                            post-mission. Documentation exhaustive et support pour assurer une transition fluide.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TECH STACK CATEGORIES -->
+            <section>
+                <span class="section-label">Arsenal Technique</span>
+                <div class="tech-categories">
+                    <div class="tech-category">
+                        <h4>Analyse & Modélisation</h4>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-icon">▸</span> Excel Expert (VBA, Power Query)
+                            </div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> Financial Toolbox</div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> Notions Python (Data Analysis)</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h4>Visualisation</h4>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-icon">▸</span> Microsoft Power BI (DAX avancé)
+                            </div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> Tableau</div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> PowerPoint (Pitch Decks)</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h4>Comptabilité & ERP</h4>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-icon">▸</span> Sage</div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> Xero</div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> QuickBooks</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h4>Collaboration</h4>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-icon">▸</span> SharePoint</div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> Microsoft Teams</div>
+                            <div class="tech-item"><span class="tech-icon">▸</span> Notion</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA SECTION -->
+            <section class="footer-cta" id="contact">
+                <p
+                    style="color: var(--primary-orange); font-size: 14px; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase;">
+                    TRAVAILLONS ENSEMBLE</p>
+                <div class="big-cta" onclick="scrollToTop()">Let's Build<br>Wealth.</div>
+                <div
+                    style="margin-top: 60px; display: flex; flex-wrap: wrap; gap: 40px; color: #888; font-size: 15px; align-items: center;">
+                    <a href="mailto:richlainjunior@gmail.com"
+                        style="color: #fff; text-decoration: none; padding-bottom: 5px; border-bottom: 2px solid var(--primary-orange); transition: var(--transition-smooth);">
+                        <i class="fas fa-envelope" style="margin-right: 10px;"></i>richlainjunior@gmail.com
+                    </a>
+                    <a href="#"
+                        style="color: #fff; text-decoration: none; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: var(--transition-smooth);">
+                        <i class="fab fa-linkedin" style="margin-right: 10px;"></i>LinkedIn: Richlain Okiere
+                    </a>
+                    <a href="tel:+33753206547"
+                        style="color: #fff; text-decoration: none; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: var(--transition-smooth);">
+                        <i class="fas fa-phone" style="margin-right: 10px;"></i>+33 7 53 20 65 47
+                    </a>
+                    <button onclick="scrollToTop()"
+                        style="margin-left: auto; background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 10px 20px; border-radius: 30px; font-size: 13px; cursor: pointer; transition: var(--transition-smooth);">
+                        <i class="fas fa-arrow-up" style="margin-right: 8px;"></i>Back to top
+                    </button>
+                </div>
+                <p style="margin-top: 40px; color: var(--text-muted); font-size: 14px;">
+                    <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i>Paris | Brazzaville (Remote &
+                    On-site)
+                </p>
+                <p style="margin-top: 20px; color: var(--text-muted); font-size: 14px;">
+                    📞 <a href="#" style="color: var(--primary-orange); text-decoration: none;">Réserver un appel
+                        découverte (30 min)</a>
+                </p>
+            </section>
+
+        </main>
+    </div>
+
+    <div class="spotlight-overlay"></div>
+
+    <script>
+        // VanillaTilt removed - 3D effects disabled per user request
+    </script>
+    <script>
+        // Track mouse for CSS variables (Spotlight & Ambient Parallax)
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            document.documentElement.style.setProperty('--mouse-x', x + 'px');
+            document.documentElement.style.setProperty('--mouse-y', y + 'px');
+
+            // Parallax for ambient lights
+            const lights = document.querySelectorAll('.ambient-light, .ambient-light-2, .ambient-light-3');
+            lights.forEach((light, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (window.innerWidth - x * 2) / speed;
+                const yOffset = (window.innerHeight - y * 2) / speed;
+                light.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progressWidth = (window.pageYOffset / totalHeight) * 100;
+            scrollProgress.style.width = progressWidth + "%";
+
+            // Show/hide navigation
+            const nav = document.querySelector('.main-nav');
+            if (window.scrollY > 300) {
+                nav.style.display = 'block';
+            } else {
+                nav.style.display = 'none';
+            }
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements to animate
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('.stat-item, .card, .case-study, .method-step, .testimonial-card, .pillar-item');
+
+            elementsToAnimate.forEach(el => {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(20px)";
+                el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>
